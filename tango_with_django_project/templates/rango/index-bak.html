@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+	<head>
+		<Title> Rango Kiran's Version</Title>
+		<link rel="stylesheet" href="{% static "css/base.css" %}" /> <!-- CSS -->
+        <script src="{% static "js/jquery.js" %}"></script> <!-- JavaScript -->
+	</head>
+
+	<body>
+
+		{% if user.is_authenticated %}
+			<h1>Rango says... hello {{ user.username }}!</h1>
+			<a href="/rango/restricted/">Restricted Page</a><br />
+			<a href="{% url 'auth_logout' %}?next=/rango/">Logout</a><br />
+		{% else %}
+		     <a href="{% url 'registration_register' %}">Register Here</a><br />
+		     <a href="{% url 'auth_login' %}">Login</a><br />
+		{% endif %}
+
+		{% if categories %}
+		<ul>
+			{% for category in categories %}
+			<li>
+				<a href="{% url 'category' category.slug %}">{{category.name}}</a></li>
+			{% endfor %}
+		</ul>
+		{% else %}
+			<strong>There are no categories present. </strong>
+		{% endif %}
+
+		<h1> Rango most popular pages!</h1>
+		{% if pages %}
+		<ul>
+			{% for page in pages %}
+			<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+			{% endfor %}
+		</ul>
+		{% else %}
+			<strong>There are no pages present. </strong>
+		{% endif %}
+		<br />
+
+		<p> visits: {{ visits }} </p>
+
+		<a href="/rango/add_category/">Add a New Category</a><br />
+		<a href=" /rango/about/ ">About</a><br />
+		<img src="{% static "images/foto.jpg" %}" alt="Picture of girl!" />
+	</body>
+</html>
