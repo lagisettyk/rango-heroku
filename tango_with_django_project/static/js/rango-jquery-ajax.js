@@ -133,9 +133,9 @@ $(document).ready( function() {
    $('.rango-add').click(function(){
    	  //alert("You clicked the button using JQuery! rango-add");
    	  var catid = $(this).attr("data-catid");
-      //var title = $(this).atrr("data-title");
       var url = $(this).attr("data-url");
-   	  $.get('/rango/auto_add_page', {category_id: catid, url: url, title: "title-###"}, function(data){
+      var desc = $(this).attr("data-desc")
+   	  $.get('/rango/auto_add_page', {category_id: catid, url: url, title: desc}, function(data){
         $('#pages').html(data);
         me.hide();
       });
