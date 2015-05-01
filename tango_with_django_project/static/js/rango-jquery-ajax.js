@@ -5,11 +5,86 @@ $(document).ready( function() {
     // Select an element, and then act on the element
     // Code aalso reflects ajax functions...
 
-    $("#about-btn").addClass('btn btn-primary')
+    $("#about-btn").addClass('btn btn-primary');
 
     $("#about-btn").click( function(event) {
     alert("You clicked the button using JQuery!");
-	});
+	  });
+
+    //Adding Graphic related examples....
+
+    $("#matplotlib-btn").addClass('btn btn-primary');
+
+    $("#matplotlib-btn").click( function() {
+      //alert("You clicked the button using JQuery!");
+     $('#content').html('<img id="loader-img" alt="" src="simple.png" height="400" align="center" />');
+    });
+
+    $("#highstock-btn").addClass('btn btn-primary');
+
+    $("#highstock-btn").click( function () {
+      //alert("You clicked the button using JQuery! for displaying highstock");
+        var seriesOptions = [],
+        seriesCounter = 0,
+        names = ['MSFT', 'AAPL', 'GOOG'],
+        // create the chart when all data is loaded
+        createChart = function () {
+
+            $('#container').highcharts('StockChart', {
+
+                rangeSelector: {
+                    selected: 4
+                },
+
+                yAxis: {
+                    labels: {
+                        formatter: function () {
+                            return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                        }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: 'silver'
+                    }]
+                },
+
+                plotOptions: {
+                    series: {
+                        compare: 'percent'
+                    }
+                },
+
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                    valueDecimals: 2
+                },
+
+                series: seriesOptions
+            });
+        };
+
+    $.each(names, function (i, name) {
+
+        $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=' + name.toLowerCase() + '-c.json&callback=?',    function (data) {
+
+            seriesOptions[i] = {
+                name: name,
+                data: data
+            };
+
+            // As we're loading the data asynchronously, we don't know what order it will arrive. So
+            // we keep a counter and create the chart when all the data is loaded.
+            seriesCounter += 1;
+
+            if (seriesCounter === names.length) {
+                createChart();
+            }
+        });
+    });
+
+  });
+
 
 	$("#about-btn").click( function(event) {
 		msgstr = $("#msg").html()
