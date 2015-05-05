@@ -22,6 +22,8 @@ $(document).ready( function() {
 
     $("#highstock-btn").addClass('btn btn-primary');
 
+
+/*
     $("#highstock-btn").click( function () {
       //alert("You clicked the button using JQuery! for displaying highstock");
         var seriesOptions = [],
@@ -85,6 +87,8 @@ $(document).ready( function() {
 
   });
 
+*/
+
 
 	$("#about-btn").click( function(event) {
 		msgstr = $("#msg").html()
@@ -139,13 +143,81 @@ $(document).ready( function() {
         $('#pages').html(data);
         me.hide();
       });
-      /*var catid = $(this).attr("data-catid");
-      var title = $(this).atrr("data-title");
-      var url = $(this).attr("data-url");
-      $.get('/rango/auto_add_page/', {category_id: catid, url: url, title: title}, function(data){
-          $('#pages').html(data);
-          me.hide();
-      });*/
+    });
+
+    /*
+    $('#highstock-btn').click(function(){
+      //alert("You clicked the button using JQuery! highstock button");
+      //$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function(data){
+      $.get('/rango/hichart_quandl/', function(data){
+        console.log(data)
+       $('#container').highcharts('StockChart', {
+              rangeSelector : {
+                  selected : 1
+              },
+
+              title : {
+                  text : 'AAPL Stock Price'
+              },
+
+              series : [{
+                  name : 'AAPL',
+                  data : $('#container').attr("data-hicharts"),
+                  tooltip: {
+                      valueDecimals: 2
+                  }
+              }]
+          });
+      });
+        
+    }); */
+
+    function displayData (data) {
+
+      console.log("inside displayData")
+      //console.log(data)
+      $('#container').highcharts('StockChart', {
+              rangeSelector : {
+                  selected : 1
+              },
+
+              title : {
+                  text : 'AAPL Stock Price'
+              },
+
+              series : [{
+                  name : 'AAPL',
+                  data : data,
+                  tooltip: {
+                      valueDecimals: 2
+                  }
+              }]
+          });
+    }
+
+    $('#highstock-btn').click(function(){
+      $.ajax({
+            url: '/rango/hichart_quandl/',
+            type: 'GET',
+            async: true,
+            dataType: "json",
+            success: function (data) {
+              console.log("Inside Success")
+              displayData(data);
+            },
+            // Code to run if the request fails; the raw request and
+    // status codes are passed to the function
+            error: function( xhr, status, errorThrown ) {
+                  alert( "Sorry, there was a problem!" );
+                  console.log( "Error: " + errorThrown );
+                  console.log( "Status: " + status );
+                  console.dir( xhr );
+            },
+            // Code to run regardless of success or failure
+            complete: function( xhr, status ) {
+             alert( "The request is complete!" );
+            } 
+      });
     });
 
 

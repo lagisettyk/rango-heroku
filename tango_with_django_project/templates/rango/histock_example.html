@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highstock Example</title>
+        <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
+        <script src="{% static "js/jquery.js" %}"></script>
+		<script type="text/javascript">
+$(function () {
+
+   //$.get('/rango/hichart_quandl/', function(data){
+    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+        // Create the chart
+        console.log(data)
+
+        setTimeout(function(){
+        $('#container').highcharts('StockChart', {
+
+
+            rangeSelector : {
+                selected : 1
+            },
+
+            title : {
+                text : 'AAPL Stock Price'
+            },
+
+            series : [{
+                name : 'AAPL',
+                data : data,
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+        });
+      }, 10000);
+    });
+
+});
+
+		</script>
+	</head>
+	<body>
+    <script src="{% static "js/highstock.js" %}"></script>
+    <script src="{% static "js/highstock-exporting.js" %}"></script>
+    <script src="{% static "js/rango-jquery-ajax.js" %}"></script>
+
+<div id="container" data-hicharts = "{{ tmp }}" style="height: 400px; min-width: 310px"></div>
+	</body>
+</html>

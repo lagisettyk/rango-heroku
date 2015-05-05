@@ -10,6 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+     <script src="{% static "js/jquery.js" %}"></script>
 
     <title>XiQuant - {% block title %}Under Construction!{% endblock %}</title>
 
@@ -42,6 +43,7 @@
                         <li><a href="{% url 'auth_login' %}">Login</a></li>
                     {% endif %}
                         <li><a href="{% url 'display_matplotlib' %}">Demo-ChartOptions</a></li>
+                        <li><a href="{% url 'display_hichart' %}">Demo-HiStock</a></li>
                         <li><a href="{% url 'about' %}">About</a></li>
 
               </ul>
@@ -81,7 +83,7 @@
     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
     <!-- Java script libraries related to JQuery -->
-    <script src="{% static "js/jquery.js" %}"></script>
+    <!--<script src="{% static "js/jquery.js" %}"></script>-->
     <script src="{% static "js/highstock.js" %}"></script>
     <script src="{% static "js/highstock-exporting.js" %}"></script>
     <script src="{% static "js/rango-jquery-ajax.js" %}"></script>
