@@ -1,0 +1,16 @@
+dj-database-url==0.3.0
+Django==1.8
+django-bootstrap-toolkit==2.15.0
+django-postgrespool==0.3.0
+django-registration-redux==1.1
+gunicorn==19.3.0
+numpy==1.9.2
+pandas==0.16.0
+Pillow==2.8.1
+psycopg2==2.6
+python-dateutil==2.4.2
+pytz==2015.2
+Quandl==2.8.6
+six==1.9.0
+SQLAlchemy==1.0.3
+whitenoise==1.0.6

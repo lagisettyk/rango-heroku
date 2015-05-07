@@ -14,11 +14,12 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = 'staticfiles'
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 STATIC_PATH = os.path.join(BASE_DIR,'static')
-#print "Base Directory:", BASE_DIR
-#print "Template path: ", TEMPLATE_PATH
+print "Base Directory:", BASE_DIR
+print "Template path: ", TEMPLATE_PATH
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -101,6 +102,14 @@ DATABASES = {
     }
 }
 
+'''
+import dj_database_url
+#DATABASES['default'] = dj_database_url.config()
+DATABASES = {'default': dj_database_url.config()}
+
+# Eanble Connection Pooling
+DATABASES['default']['ENGINE'] = 'django_postgrespool'
+'''
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -124,3 +133,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
+
+# Simplified static file serving
+# https://warehouse.python.org/project/whitenoise
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
